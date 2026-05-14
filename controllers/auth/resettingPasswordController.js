@@ -97,7 +97,7 @@ export const resetPasswordController = async (req, res, next) => {
       );
     }
     res.clearCookie("refreshToken", {
-      sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
+      sameSite: "lax",
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
     });

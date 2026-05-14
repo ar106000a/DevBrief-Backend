@@ -25,7 +25,7 @@ export const authenticateToken = async (req, res, next) => {
       throw new AppError("VALIDATION_ERROR", 401, message, err);
     }
 
-    req.user = decoded;
+    req.user = { id: decoded.userId };
     next();
   } catch (error) {
     // Check if the error is an instance of AppError

@@ -2,7 +2,7 @@ import AppError from "../../utils/appError.js";
 import { supabase } from "../../db/client.js";
 export const healthCheck = async (req, res, next) => {
   try {
-    const { data, error } = await supabase.from("reply_media").select("*");
+    const { data, error } = await supabase.from("briefs").select("*");
     if (error) {
       throw new AppError(
         "DATABASE_ERROR",

@@ -58,7 +58,7 @@ export const loginController = async (req, res, next) => {
       res.cookie("refreshToken", refreshToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
+        sameSite: "none",
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       });
 
@@ -107,7 +107,7 @@ export const loginController = async (req, res, next) => {
       const confirmEmailToken = generateEmailToken(user.email);
       res.cookie("confirmEmailToken", confirmEmailToken, {
         httpOnly: true,
-        sameSite: "lax",
+        sameSite: "none",
         secure: process.env.NODE_ENV === "production",
         maxAge: 10 * 60 * 1000,
       });

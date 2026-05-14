@@ -97,7 +97,7 @@ export const confirmOTPForResettingPasswordController = async (
     res.cookie("resetToken", resetToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite:  "lax",
+      sameSite:  "none",
       maxAge: 10 * 60 * 1000,
     });
     // Return success message regardless of deletion outcome

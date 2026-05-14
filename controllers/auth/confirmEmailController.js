@@ -146,7 +146,7 @@ export const confirmEmailController = async (req, res, next) => {
       res.clearCookie("confirmEmailToken", {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
+        sameSite: "none",
       });
 
       //Deciding the response-flow
@@ -161,7 +161,7 @@ export const confirmEmailController = async (req, res, next) => {
         const accessToken = generateAccessToken(user.id);
         const refreshToken = generateRefreshToken(user.id);
         res.cookie("refreshToken", refreshToken, {
-          sameSite: "lax",
+          sameSite: "none",
           secure: process.env.NODE_ENV === "production",
           httpOnly: true,
           maxAge: 7 * 24 * 60 * 60 * 1000,

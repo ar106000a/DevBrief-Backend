@@ -160,7 +160,7 @@ export const registerController = async (req, res, next) => {
     res.cookie("confirmEmailToken", confirmEmailToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite:  "lax",
+      sameSite:  "none",
       maxAge: 10 * 60 * 1000, // 10 minutes
     });
 

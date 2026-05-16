@@ -5,7 +5,10 @@ import AppError from "../utils/appError.js";
 export const authenticateToken = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
-    const token = authHeader && authHeader.split(" ")[1];
+    // Prefer cookie-based access token (httpOnly). Fallback to Authorization header.
+    const cookieToken =
+      req.cookies && (req.cookies.accessToken || req.cookies.token);
+    const token = cookieToken || (authHeader && authHeader.split(" ")[1]);
 
     if (!token) {
       throw new AppError(

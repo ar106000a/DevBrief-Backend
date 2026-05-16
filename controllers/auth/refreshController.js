@@ -63,10 +63,16 @@ export const refreshController = async (req, res, next) => {
 
     // Generate new access token
     const accessToken = generateAccessToken(user.id);
+    // Set access token as httpOnly cookie so client JS doesn't need to read it
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      maxAge: 15 * 60 * 1000, // 15 minutes
+    });
     res.set("Cache-Control", "no-store");
     return res.status(200).json({
       user: { id: user.id, email: user.email, username: user.username },
-      accessToken: accessToken,
       success: true,
       message: "New Access Token granted",
     });

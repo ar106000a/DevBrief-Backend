@@ -161,14 +161,20 @@ export const confirmEmailController = async (req, res, next) => {
         const accessToken = generateAccessToken(user.id);
         const refreshToken = generateRefreshToken(user.id);
         res.cookie("refreshToken", refreshToken, {
-          sameSite: "none",
-          secure: process.env.NODE_ENV === "production",
           httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
           maxAge: 7 * 24 * 60 * 60 * 1000,
+        });
+        // also set access token as httpOnly cookie
+        res.cookie("accessToken", accessToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+          maxAge: 15 * 60 * 1000,
         });
         res.status(200).json({
           user: { id: user.id, email: user.email, username: user.username },
-          accessToken: accessToken,
           success: true,
           message: "Successfully logged in the new user!",
           deleteFlag: deleteFlag,

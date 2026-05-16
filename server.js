@@ -32,6 +32,7 @@ app.use(helmet());
 app.get("/", (req, res) => res.status(200).send("OK"));
 app.use("/api/auth", authRoute);
 app.use("/system", systemRoutes);
+app.use("/api/brief", briefRouter);
 app.use("/app/brief", briefRouter);
 app.use("/app", authenticateToken, protectedRoutes);
 app.use(errorHandler);

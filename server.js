@@ -31,6 +31,14 @@ app.use(cookieParser());
 app.use(helmet());
 app.get("/", (req, res) => res.status(200).send("OK"));
 app.use("/api/auth", authRoute);
+app.get("/api/auth/debug", (req, res) => {
+  res.json({
+    success: true,
+    cookies: req.cookies,
+    origin: req.headers.origin,
+    host: req.headers.host,
+  });
+});
 app.use("/system", systemRoutes);
 app.use("/api/brief", briefRouter);
 app.use("/app/brief", briefRouter);

@@ -22,7 +22,7 @@ app.set("trust proxy", 1);
 
 app.use(
   cors({
-    origin: process.env.ORIGIN,
+    origin: true,
     credentials: true,
   }),
 );
@@ -35,6 +35,21 @@ app.get("/api/auth/debug", (req, res) => {
   res.json({
     success: true,
     cookies: req.cookies,
+    origin: req.headers.origin,
+    host: req.headers.host,
+  });
+});
+app.get("/api/auth/test-cookie", (req, res) => {
+  res.cookie("safariTest", "ok", {
+    httpOnly: false,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "none",
+    path: "/",
+    maxAge: 10 * 1000,
+  });
+  res.json({
+    success: true,
+    message: "Test cookie sent",
     origin: req.headers.origin,
     host: req.headers.host,
   });

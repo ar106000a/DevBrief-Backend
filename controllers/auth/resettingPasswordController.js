@@ -99,7 +99,8 @@ export const resetPasswordController = async (req, res, next) => {
     res.clearCookie("refreshToken", {
       sameSite: "none",
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: true,
+      path: "/",
     });
     return res.status(200).json({
       success: true,

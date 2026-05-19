@@ -163,7 +163,7 @@ export const confirmEmailController = async (req, res, next) => {
         const refreshToken = generateRefreshToken(user.id);
         res.cookie("refreshToken", refreshToken, {
           httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
+          secure: true,
           sameSite: "none",
           path: "/",
           maxAge: 7 * 24 * 60 * 60 * 1000,
@@ -171,7 +171,7 @@ export const confirmEmailController = async (req, res, next) => {
         // also set access token as httpOnly cookie
         res.cookie("accessToken", accessToken, {
           httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
+          secure: true,
           sameSite: "none",
           path: "/",
           maxAge: 15 * 60 * 1000,

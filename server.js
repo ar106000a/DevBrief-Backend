@@ -13,17 +13,15 @@ export const app = express();
 app.set("trust proxy", 1);
 
 // Middleware
-// app.use(
-//   cors({
-//     origin: process.env.ORIGIN,
-//     credentials: true,
-//   }),
-// );
-
 app.use(
   cors({
-    origin: true,
+    origin: (origin, callback) => {
+      // Allow any origin when credentials: true by reflecting it back
+      callback(null, origin || "*");
+    },
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
 app.use(express.json());

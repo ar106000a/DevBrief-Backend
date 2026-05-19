@@ -67,7 +67,7 @@ export const loginController = async (req, res, next) => {
 
       res.cookie("refreshToken", refreshToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        secure: true,
         sameSite: "none",
         path: "/",
         maxAge: 7 * 24 * 60 * 60 * 1000,
@@ -75,7 +75,7 @@ export const loginController = async (req, res, next) => {
       // Set short-lived httpOnly access token cookie
       res.cookie("accessToken", accessToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        secure: true,
         sameSite: "none",
         path: "/",
         maxAge: 15 * 60 * 1000, // 15 minutes
@@ -120,7 +120,8 @@ export const loginController = async (req, res, next) => {
     res.cookie("confirmEmailToken", confirmEmailToken, {
       httpOnly: true,
       sameSite: "none",
-      secure: process.env.NODE_ENV === "production",
+      secure: true,
+      path: "/",
       maxAge: 10 * 60 * 1000,
     });
 

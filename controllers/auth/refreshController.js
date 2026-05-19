@@ -29,7 +29,7 @@ export const refreshController = async (req, res, next) => {
     if (Date.now() - decoded.sessionStart > SESSION_MAX_AGE_MILISECONDS) {
       res.clearCookie("refreshToken", {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        secure: true,
         sameSite: "none",
         path: "/",
       });
@@ -67,7 +67,7 @@ export const refreshController = async (req, res, next) => {
     // Set access token as httpOnly cookie so client JS doesn't need to read it
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: true,
       sameSite: "none",
       path: "/",
       maxAge: 15 * 60 * 1000, // 15 minutes

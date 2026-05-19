@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Safari Cookie Test</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+      }
+      button {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        font-size: 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        background: #007aff;
+        color: white;
+      }
+      button:hover {
+        background: #0051d5;
+      }
+      .result {
+        margin-top: 20px;
+        padding: 15px;
+        background: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        white-space: pre-wrap;
+        word-break: break-all;
+        font-size: 12px;
+        font-family: monospace;
+      }
+      .error {
+        background: #ffebee;
+        border-color: #ef5350;
+        color: #c62828;
+      }
+      .success {
+        background: #e8f5e9;
+        border-color: #66bb6a;
+        color: #2e7d32;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Safari Cookie Test</h1>
+
+      <button onclick="testGetCookie()">
+        Test 1: GET /api/auth/test-cookie
+      </button>
+      <button onclick="testDebugGet()">Test 2: GET /api/auth/debug</button>
+      <button onclick="testDebugPost()">
+        Test 3: POST /api/auth/debug-post (Check for cookies)
+      </button>
+
+      <div id="result"></div>
+    </div>
+
+    <script>
+      const API_URL = "https://devbrief-backend.onrender.com";
+
+      function showResult(text, isError = false) {
+        const div = document.getElementById("result");
+        div.textContent = text;
+        div.className = "result " + (isError ? "error" : "success");
+      }
+
+      async function testGetCookie() {
+        try {
+          const res = await fetch(`${API_URL}/api/auth/test-cookie`);
+          const data = await res.json();
+          showResult(JSON.stringify(data, null, 2), false);
+        } catch (err) {
+          showResult("Error: " + err.message, true);
+        }
+      }
+
+      async function testDebugGet() {
+        try {
+          const res = await fetch(`${API_URL}/api/auth/debug`);
+          const data = await res.json();
+          showResult(JSON.stringify(data, null, 2), false);
+        } catch (err) {
+          showResult("Error: " + err.message, true);
+        }
+      }
+
+      async function testDebugPost() {
+        try {
+          const res = await fetch(`${API_URL}/api/auth/debug-post`, {
+            method: "POST",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+          });
+          const data = await res.json();
+          showResult(JSON.stringify(data, null, 2), false);
+        } catch (err) {
+          showResult("Error: " + err.message, true);
+        }
+      }
+    </script>
+  </body>
+</html>

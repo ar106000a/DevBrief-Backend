@@ -69,6 +69,7 @@ export const loginController = async (req, res, next) => {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        path: "/",
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
       // Set short-lived httpOnly access token cookie
@@ -76,6 +77,7 @@ export const loginController = async (req, res, next) => {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        path: "/",
         maxAge: 15 * 60 * 1000, // 15 minutes
       });
 

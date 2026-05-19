@@ -147,6 +147,7 @@ export const confirmEmailController = async (req, res, next) => {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "none",
+        path: "/",
       });
 
       //Deciding the response-flow
@@ -164,6 +165,7 @@ export const confirmEmailController = async (req, res, next) => {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production",
           sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+          path: "/",
           maxAge: 7 * 24 * 60 * 60 * 1000,
         });
         // also set access token as httpOnly cookie
@@ -171,6 +173,7 @@ export const confirmEmailController = async (req, res, next) => {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production",
           sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+          path: "/",
           maxAge: 15 * 60 * 1000,
         });
         res.status(200).json({

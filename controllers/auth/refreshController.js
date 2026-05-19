@@ -31,6 +31,7 @@ export const refreshController = async (req, res, next) => {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "none",
+        path: "/",
       });
       throw new AppError(
         "VALIDATION_ERROR",
@@ -68,6 +69,7 @@ export const refreshController = async (req, res, next) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      path: "/",
       maxAge: 15 * 60 * 1000, // 15 minutes
     });
     res.set("Cache-Control", "no-store");

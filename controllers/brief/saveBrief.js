@@ -4,7 +4,8 @@ import AppError from "../../utils/appError.js";
 export const saveBriefController = async (req, res, next) => {
   try {
     const userId = req.user.id;
-    const { title, idea, features, stack, timeline, questions } = req.body;
+    const { title, idea, features, stack, cost, team, timeline, questions } =
+      req.body;
 
     if (!title || !idea || !features || !stack || !timeline || !questions) {
       throw new AppError(
@@ -23,6 +24,8 @@ export const saveBriefController = async (req, res, next) => {
           idea,
           features,
           stack,
+          cost,
+          team,
           timeline,
           questions,
           is_public: false,
